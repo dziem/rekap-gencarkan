@@ -73,6 +73,38 @@ def provinsi(col, provs):
         return 'Blank'
     else:
         return p
+
+def kabkotaManual(col):
+    k = clean(col)
+    if 'administrasi' in k:
+        return k.replace("administrasi", "Adm.").title()
+    elif 'jakarta' in k and 'adm' not in k:
+        return 'Kota Adm. ' + k.title()
+    else:
+        return k.title()
+        
+def kabkota(col, kabs):
+    kabb = kabkotaManual(col)
+    if kabb not in kabs:   
+        mins = 99999
+        correctName = ''
+        z = -1
+        x = -1
+        for j in kabs:
+            x = x + 1
+            for k in ['Kota ', 'Kabupaten ']:
+                checking = k + kabb
+                newMins = editdistance.eval(checking.lower().strip(), j.lower())
+                if (newMins < mins):
+                    mins = newMins
+                    correctName = j 
+                    z = x
+        if (mins < 3):
+            return kabs[z]
+        else:
+            return '-'
+    else:
+        return kabb
  
 def namaKeg(col):
     n = clean(col)
@@ -154,6 +186,7 @@ def peserta(col):
 master = pd.read_excel('master.xlsx', na_filter=False, sheet_name=None)
 bulans = master["Bulan"]["Bulan"].values.tolist()
 provs = master["Provinsi"]["Provinsi"].values.tolist()
+kabs = master["KabKota"]["Kab/Kota"].values.tolist()
 pujk = pd.read_excel('pujk.xlsx', na_filter=False)
 pujks = pujk["Nama PUJK"].values.tolist()
 deleting = []
@@ -177,6 +210,9 @@ for i in range(0, rows):
         
     #provinsi
     data.loc[rowIndex,'Provinsi'] = provinsi(data.loc[rowIndex,'Provinsi'], provs)
+    
+    #kab/kota
+    data.loc[rowIndex,'Kabupaten/ Kota'] = kabkota(data.loc[rowIndex,'Kabupaten/ Kota'], kabs)
         
     #clean nama kegiatan
     nama = data.loc[rowIndex,'Nama Kegiatan']
