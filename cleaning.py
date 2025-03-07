@@ -111,6 +111,8 @@ def namaKeg(col):
     stat = 'Valid'
     if n == '-':
         return 'Invalid'
+    if 'nihil' in n:
+        return 'Invalid'
     if n == 'nihil':
         return 'Invalid'
     if n == '0':
@@ -119,7 +121,7 @@ def namaKeg(col):
         return 'Invalid'
     if n == 'null':
         return 'Invalid'
-    if n == 'tidak ada' or ('tidak' in n and 'kegiatan' in n):
+    if n == 'tidak ada' or (('tidak' in n or 'tdk' in n) and 'kegiatan' in n):
         return 'Invalid'
     return stat
     
@@ -164,6 +166,17 @@ def bentuk(col):
         return 'Edukasi Langsung'
     elif 'training of trainers' in ben:
         return 'Training of Trainers (ToT)'
+    else:
+        return 'Blank'
+        
+def jenis(col):
+    ben = clean(col)
+    if 'dan' in ben:
+        return 'Konvensional dan Syariah'
+    elif 'konven' in ben:
+        return 'Konvensional'
+    elif 'syar' in ben:
+        return 'Syariah'
     else:
         return 'Blank'
         
@@ -222,6 +235,9 @@ for i in range(0, rows):
         
     #segmen
     data.loc[rowIndex,'Segmen Sasaran'] = segmen(data.loc[rowIndex,'Segmen Sasaran'])
+    
+    #Jenis
+    data.loc[rowIndex,'Jenis Kegiatan'] = jenis(data.loc[rowIndex,'Jenis Kegiatan'])
     
     #Jumlah Peserta
     data.loc[rowIndex,'Jumlah Peserta / Viewers'] = peserta(data.loc[rowIndex,'Jumlah Peserta / Viewers'])
