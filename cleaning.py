@@ -109,20 +109,22 @@ def kabkota(col, kabs):
 def namaKeg(col):
     n = clean(col)
     stat = 'Valid'
+    if n == '':
+        stat = 'Invalid'
     if n == '-':
-        return 'Invalid'
+        stat = 'Invalid'
     if 'nihil' in n:
-        return 'Invalid'
+        stat = 'Invalid'
     if n == 'nihil':
-        return 'Invalid'
+        stat = 'Invalid'
     if n == '0':
-        return 'Invalid'
+        stat = 'Invalid'
     if n == 'belum ada kegiatan' or ('belum' in n and 'kegiatan' in n):
-        return 'Invalid'
+        stat = 'Invalid'
     if n == 'null':
-        return 'Invalid'
+        stat = 'Invalid'
     if n == 'tidak ada' or (('tidak' in n or 'tdk' in n) and 'kegiatan' in n):
-        return 'Invalid'
+        stat = 'Invalid'
     return stat
     
 def segmen(col):
