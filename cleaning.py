@@ -249,9 +249,16 @@ for i in range(0, rows):
     
     #sektor
     data.loc[rowIndex,'Sektor PUJK'] = sektor(data.loc[rowIndex,'Nama PUJK'], pujk, pujks)
+    
+    #geraks
+    munth = data.loc[rowIndex,'Periode (Bulan)']
+    jeniss = data.loc[rowIndex,'Jenis Kegiatan']
+    if ' - GERAKS' in munth and 'Syariah' not in jeniss:
+        data.loc[rowIndex,'Periode (Bulan)'] = munth.replace(" - GERAKS", "") 
 
 print(deleting)
 data.reset_index()
 data.drop(deleting, axis=0, inplace=True)
 
 data.to_excel("Gencarkan - Result 2 Clean.xlsx", index=False)
+#data.to_excel("testing res.xlsx", index=False)
