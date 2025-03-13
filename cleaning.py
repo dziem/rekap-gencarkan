@@ -239,7 +239,8 @@ for i in range(0, rows):
     data.loc[rowIndex,'Segmen Sasaran'] = segmen(data.loc[rowIndex,'Segmen Sasaran'])
     
     #Jenis
-    data.loc[rowIndex,'Jenis Kegiatan'] = jenis(data.loc[rowIndex,'Jenis Kegiatan'])
+    jeniss = jenis(data.loc[rowIndex,'Jenis Kegiatan'])
+    data.loc[rowIndex,'Jenis Kegiatan'] = jeniss
     
     #Jumlah Peserta
     data.loc[rowIndex,'Jumlah Peserta / Viewers'] = peserta(data.loc[rowIndex,'Jumlah Peserta / Viewers'])
@@ -251,10 +252,8 @@ for i in range(0, rows):
     data.loc[rowIndex,'Sektor PUJK'] = sektor(data.loc[rowIndex,'Nama PUJK'], pujk, pujks)
     
     #geraks
-    munth = data.loc[rowIndex,'Periode (Bulan)']
-    jeniss = data.loc[rowIndex,'Jenis Kegiatan']
-    if ' - GERAKS' in munth and 'Syariah' not in jeniss:
-        data.loc[rowIndex,'Periode (Bulan)'] = munth.replace(" - GERAKS", "") 
+    if ' - GERAKS' in newMonth and 'Syariah' not in jeniss:
+        data.loc[rowIndex,'Periode (Bulan)'] = newMonth.replace(" - GERAKS", "") 
 
 print(deleting)
 data.reset_index()
