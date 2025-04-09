@@ -65,12 +65,26 @@ def provinsiManual(col):
         return 'Kepulauan Riau'
     else:
         p = p.replace('sumatra', 'sumatera')
-        return p.title()
+        return p.title().strip()
  
 def provinsi(col, provs):
     p = provinsiManual(col)
     if p not in provs:
-        return 'Blank'
+        mins = 99999
+        correctName = ''
+        z = -1
+        x = -1
+        for j in provs:
+            x = x + 1
+            newMins = editdistance.eval(p.lower().strip(), j.lower())
+            if (newMins < mins):
+                mins = newMins
+                correctName = j 
+                z = x
+        if (mins < 3):
+            return provs[z]
+        else:
+            return 'Blank'
     else:
         return p
 
