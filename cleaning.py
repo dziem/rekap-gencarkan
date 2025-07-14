@@ -139,6 +139,26 @@ def namaKeg(col):
         stat = 'Invalid'
     if n == 'tidak ada' or (('tidak' in n or 'tdk' in n) and 'kegiatan' in n):
         stat = 'Invalid'
+    if 'iklan' in n:
+        stat = 'Invalid'
+    if 'ads' in n:
+        stat = 'Invalid'
+    if 'advertising' in n:
+        stat = 'Invalid'
+    if 'promo' in n:
+        stat = 'Invalid'
+    if 'pemasaran' in n:
+        stat = 'Invalid'
+    if 'cashback' in n:
+        stat = 'Invalid'
+    if 'diskon' in n:
+        stat = 'Invalid'
+    if 'hadiah' in n:
+        stat = 'Invalid'
+    if 'happy' in n:
+        stat = 'Invalid'
+    if 'selamat' in n:
+        stat = 'Invalid'
     return stat
     
 def segmen(col):
