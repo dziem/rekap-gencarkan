@@ -159,6 +159,8 @@ def namaKeg(col):
         stat = 'Invalid'
     if 'selamat' in n:
         stat = 'Invalid'
+    if 'bonus' in n:
+        stat = 'Invalid'
     return stat
     
 def segmen(col):
