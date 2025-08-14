@@ -106,7 +106,7 @@ def kabkota(col, kabs):
         x = -1
         for j in kabs:
             x = x + 1
-            for k in ['Kota ', 'Kabupaten ']:
+            for k in ['', 'Kota ', 'Kabupaten ']:
                 checking = k + kabb
                 newMins = editdistance.eval(checking.lower().strip(), j.lower())
                 if (newMins < mins):
