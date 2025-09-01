@@ -265,12 +265,6 @@ for i in range(0, rows):
     #kab/kota
     data.loc[rowIndex,'Kabupaten/ Kota'] = kabkota(data.loc[rowIndex,'Kabupaten/ Kota'], kabs)
         
-    #clean nama kegiatan
-    nama = data.loc[rowIndex,'Nama Kegiatan']
-    checkNama = namaKeg(nama)
-    if checkNama == 'Invalid':
-        deleting.append(i)
-        
     #segmen
     data.loc[rowIndex,'Segmen Sasaran'] = segmen(data.loc[rowIndex,'Segmen Sasaran'])
     
@@ -282,7 +276,14 @@ for i in range(0, rows):
     data.loc[rowIndex,'Jumlah Peserta / Viewers'] = peserta(data.loc[rowIndex,'Jumlah Peserta / Viewers'])
     
     #bentuk
-    data.loc[rowIndex,'Klasifikasi Kegiatan'] = bentuk(data.loc[rowIndex,'Klasifikasi Kegiatan'])
+    bentukk = bentuk(data.loc[rowIndex,'Klasifikasi Kegiatan'])
+    data.loc[rowIndex,'Klasifikasi Kegiatan'] = bentukk
+    
+    #clean nama kegiatan
+    nama = data.loc[rowIndex,'Nama Kegiatan']
+    checkNama = namaKeg(nama)
+    if checkNama == 'Invalid' and bentukk not in ('Training of Trainers (ToT)','Edukasi Langsung'):
+        deleting.append(i)
     
     #sektor
     data.loc[rowIndex,'Sektor PUJK'] = sektor(data.loc[rowIndex,'Nama PUJK'], pujk, pujks)
