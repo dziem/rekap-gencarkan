@@ -207,6 +207,17 @@ def bentuk(col):
     else:
         return 'Blank'
         
+def bentukBei(metode, peserta):
+    if (peserta > 5000):
+        return 'Edukasi Digital'
+    elif (peserta <= 5000):
+        if metode in ('Tatap Muka', 'Hybrid'):
+            return 'Edukasi Langsung'
+        else:
+            return 'Edukasi Digital'
+    else:
+        return 'Blank'
+        
 def jenis(col):
     ben = clean(col)
     if 'dan' in ben:
@@ -248,6 +259,9 @@ rows = len(data.index)
 for i in range(0, rows):
     rowIndex = data.index[i]
     
+    #For Bursa Efek Indonesia (BEI) Special Case
+    namaPujk = data.loc[rowIndex,'Nama PUJK']
+    
     #periode bulan
     month = data.loc[rowIndex,'Periode (Bulan)']
     if month.strip():
@@ -276,7 +290,10 @@ for i in range(0, rows):
     data.loc[rowIndex,'Jumlah Peserta / Viewers'] = peserta(data.loc[rowIndex,'Jumlah Peserta / Viewers'])
     
     #bentuk
-    bentukk = bentuk(data.loc[rowIndex,'Klasifikasi Kegiatan'])
+    if (namaPujk == 'Bursa Efek Indonesia (BEI)'):
+        bentukk = bentukBei(data.loc[rowIndex,'Metode Pelaksanaan'], data.loc[rowIndex,'Jumlah Peserta / Viewers'])
+    else:
+        bentukk = bentuk(data.loc[rowIndex,'Klasifikasi Kegiatan'])
     data.loc[rowIndex,'Klasifikasi Kegiatan'] = bentukk
     
     #clean nama kegiatan
