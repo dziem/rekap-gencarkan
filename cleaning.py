@@ -299,7 +299,8 @@ for i in range(0, rows):
     #clean nama kegiatan
     nama = data.loc[rowIndex,'Nama Kegiatan']
     checkNama = namaKeg(nama)
-    if checkNama == 'Invalid' and bentukk not in ('Training of Trainers (ToT)','Edukasi Langsung'):
+    #if checkNama == 'Invalid' and bentukk not in ('Training of Trainers (ToT)','Edukasi Langsung'):
+    if checkNama == 'Invalid':
         deleting.append(i)
     
     #sektor
